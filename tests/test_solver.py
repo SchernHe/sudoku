@@ -1,5 +1,7 @@
 import pytest 
 from sudoku.solver import solve
+from sudoku.solver import get_grid
+
 
 def test_solver():
 
@@ -27,4 +29,6 @@ def test_solver():
 		[2,3,8,5,7,9,4,6,1],
 	]
 
-	assert solve(grid)==solution
+	assert (solve(grid)==solution).all()
+
+
