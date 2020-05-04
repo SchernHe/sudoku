@@ -123,7 +123,7 @@ def find_increment(grid: list, position: tuple) -> int:
 
 
 def valid_candidate(candidate: int, grid: list, position: tuple):
-    """Check that the candidate does not violate the freuqnecy condition
+    """Check that the candidate does not violate the frequency condition
     in the corresponding row, column and box.
 
     Parameters
@@ -137,18 +137,18 @@ def valid_candidate(candidate: int, grid: list, position: tuple):
 
     Returns
     -------
-    TYPE
-        Description
+    boolean
+        Indicator whether candidate violates the frequency condition or
+        not.
     """
 
     row = grid[position[0], :]
     col = grid[:, position[1]]
-    box = get_box(grid, position)
-
-    if (candidate in row) or (candidate in col) or (candidate in box):
-        return False
-
-    return True
+    box = get_box(grid, position).flatten()
+    
+    present_values = set(np.concatenate((row,col,box),axis=0))
+    
+    return not (candidate in present_values)
 
 
 def get_box(grid: list, position: tuple):
@@ -174,8 +174,6 @@ def get_box(grid: list, position: tuple):
         The corresponding box of the current position on the grid
 
     """
-
-    grid = np.array(grid)
 
     box_h = position[0] // 3
     box_v = position[1] // 3

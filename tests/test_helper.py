@@ -1,5 +1,5 @@
 from sudoku.solver import get_box
-
+import numpy as np
 
 def test_get_box():
 
@@ -14,6 +14,7 @@ def test_get_box():
         [5, 6, 7, 2, 1, 4, 3, 8, 9],
         [2, 3, 8, 5, 7, 9, 4, 6, 1],
     ]
+    grid = np.array(grid)
 
     expected_result = [
         [7, 2, 6],
