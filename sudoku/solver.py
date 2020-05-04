@@ -115,7 +115,7 @@ def find_increment(grid: list, position: tuple) -> int:
     int
         A possible increment
     """
-    for update in np.arange(grid[position], 10, 1):
+    for update in np.arange(grid[position]+1, 10, 1):
         if valid_candidate(update, grid, position):
             return int(update)
 
