@@ -1,59 +1,63 @@
 """Sudoku solver"""
 import numpy as np
 
+class SudokuSolver():
 
-def solve(grid: list) -> list:
-    """Solve the given sudoku grid using backtracking (brute force).
+    def __init__(self):
+        pass
 
-    See: https://en.wikipedia.org/wiki/Sudoku_solving_algorithms
+    def __call__(self, grid: list) -> list:
+        """Solve the given sudoku grid using backtracking (brute force).
 
-    Parameters
-    ----------
-    grid : list
-        Sudoku grid with blanks
+        See: https://en.wikipedia.org/wiki/Sudoku_solving_algorithms
 
-    Returns
-    -------
-    grid : list
-        Solved sudoku grid
-    """
+        Parameters
+        ----------
+        grid : list
+            Sudoku grid with blanks
 
-    grid = np.array(grid)
-    print(f"\nStart Solving:\n {grid}\n")
+        Returns
+        -------
+        grid : list
+            Solved sudoku grid
+        """
 
-    open_positions = np.where(grid == 0)
+        grid = np.array(grid)
+        print(f"\nStart Solving:\n {grid}\n")
 
-    candidate_pointer = 0
-    while candidate_pointer < len(open_positions[0]):
+        open_positions = np.where(grid == 0)
 
-        position = get_position(candidate_pointer, open_positions)
-        candidate = find_candidate(grid, position)
+        candidate_pointer = 0
+        while candidate_pointer < len(open_positions[0]):
 
-        if isinstance(candidate, int):
-            grid[position] = candidate
-            candidate_pointer += 1
-        else:
+            position = get_position(candidate_pointer, open_positions)
+            candidate = find_candidate(grid, position)
 
-            update_pointer = candidate_pointer - 1
+            if isinstance(candidate, int):
+                grid[position] = candidate
+                candidate_pointer += 1
+            else:
 
-            while update_pointer >= 0:
+                update_pointer = candidate_pointer - 1
 
-                position = get_position(update_pointer, open_positions)
-                update = find_increment(grid, position)
+                while update_pointer >= 0:
 
-                if isinstance(update, int):
-                    grid[position] = update
-                    candidate_pointer = update_pointer + 1
-                    break
+                    position = get_position(update_pointer, open_positions)
+                    update = find_increment(grid, position)
 
-                grid[position] = 0
-                update_pointer -= 1
+                    if isinstance(update, int):
+                        grid[position] = update
+                        candidate_pointer = update_pointer + 1
+                        break
 
-                if update_pointer == -1:
-                    raise
+                    grid[position] = 0
+                    update_pointer -= 1
 
-    print(f"Valid Solution:\n {grid}")
-    return grid
+                    if update_pointer == -1:
+                        raise
+
+        print(f"Valid Solution:\n {grid}")
+        return grid
 
 
 def get_position(pointer: int, open_positions: list) -> tuple:

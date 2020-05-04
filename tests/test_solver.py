@@ -1,8 +1,8 @@
-from sudoku.solver import solve
+from sudoku.solver import SudokuSolver
 
 
 def test_solver():
-
+    solver = SudokuSolver()
     grid = [
         [0, 2, 6, 0, 0, 0, 8, 1, 0],
         [3, 0, 0, 7, 0, 8, 0, 0, 6],
@@ -27,4 +27,4 @@ def test_solver():
         [2, 3, 8, 5, 7, 9, 4, 6, 1],
     ]
 
-    assert (solve(grid) == solution).all()
+    assert (solver(grid) == solution).all()
